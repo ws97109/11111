@@ -135,7 +135,7 @@ class Scratch:
         failsafe = [
             "早上6點起床並完成早餐的例行工作",
             "早上7點吃早餐",
-            "早上8點看书",
+            "早上8點看書",
             "中午12點吃午飯",
             "下午1點小睡一會兒",
             "晚上7點放松一下，看電視",
@@ -163,10 +163,10 @@ class Scratch:
         failsafe = {
             "6:00": "起床並完成早晨的例行工作",
             "7:00": "吃早餐",
-            "8:00": "读书",
-            "9:00": "读书",
-            "10:00": "读书",
-            "11:00": "读书",
+            "8:00": "讀書",
+            "9:00": "讀書",
+            "10:00": "讀書",
+            "11:00": "讀書",
             "12:00": "吃午飯",
             "13:00": "小睡一會兒",
             "14:00": "小睡一會兒",
@@ -176,8 +176,8 @@ class Scratch:
             "18:00": "回家",
             "19:00": "放松，看電視",
             "20:00": "放松，看電視",
-            "21:00": "睡前看书",
-            "22:00": "準备睡覺",
+            "21:00": "睡前看書",
+            "22:00": "準備睡覺",
             "23:00": "睡覺",
         }
 
@@ -409,15 +409,15 @@ class Scratch:
         def _callback(response):
             # 正則表达式：匹配大多數emoji
             emoji_pattern = u"([\U0001F600-\U0001F64F]|"   # 表情符號
-            emoji_pattern += u"[\U0001F300-\U0001F5FF]|"   # 符號和图標
-            emoji_pattern += u"[\U0001F680-\U0001F6FF]|"   # 运輸和地图符號
+            emoji_pattern += u"[\U0001F300-\U0001F5FF]|"   # 符號和圖標
+            emoji_pattern += u"[\U0001F680-\U0001F6FF]|"   # 運輸和地圖符號
             emoji_pattern += u"[\U0001F700-\U0001F77F]|"   # 午夜符號
             emoji_pattern += u"[\U0001F780-\U0001F7FF]|"   # 英镑符號
-            emoji_pattern += u"[\U0001F800-\U0001F8FF]|"   # 合成扩展
-            emoji_pattern += u"[\U0001F900-\U0001F9FF]|"   # 補充符號和图標
-            emoji_pattern += u"[\U0001FA00-\U0001FA6F]|"   # 補充符號和图標
-            emoji_pattern += u"[\U0001FA70-\U0001FAFF]|"   # 補充符號和图標
-            emoji_pattern += u"[\U00002702-\U000027B0]+)"  # 杂項符號
+            emoji_pattern += u"[\U0001F800-\U0001F8FF]|"   # 合成擴展
+            emoji_pattern += u"[\U0001F900-\U0001F9FF]|"   # 補充符號和圖標
+            emoji_pattern += u"[\U0001FA00-\U0001FA6F]|"   # 補充符號和圖標
+            emoji_pattern += u"[\U0001FA70-\U0001FAFF]|"   # 補充符號和圖標
+            emoji_pattern += u"[\U00002702-\U000027B0]+)"  # 雜項符號
 
             emoji = re.compile(emoji_pattern, flags=re.UNICODE).findall(response)
             if len(emoji) > 0:
@@ -481,7 +481,7 @@ class Scratch:
             ]
             return parse_llm_output(response, patterns)
 
-        return {"prompt": prompt, "callback": _callback, "failsafe": "空闲"}
+        return {"prompt": prompt, "callback": _callback, "failsafe": "空閒"}
 
     def prompt_decide_chat(self, agent, other, focus, chats):
         def _status_des(a):
@@ -546,22 +546,22 @@ class Scratch:
         example1 = self.build_prompt(
             "decide_wait_example",
             {
-                "context": "簡是麗兹的室友。2022-10-25 07:05，簡和麗兹互相問候了早上好。",
+                "context": "簡是麗茲的室友。2022-10-25 07:05，簡和麗茲互相問候了早上好。",
                 "date": "2022-10-25 07:09",
                 "agent": "簡",
-                "another": "麗兹",
+                "another": "麗茲",
                 "status": "簡 正要去浴室",
-                "another_status": "麗兹 已經在 使用浴室",
+                "another_status": "麗茲 已經在 使用浴室",
                 "action": "使用浴室",
                 "another_action": "使用浴室",
-                "reason": "推理：簡和麗兹都想用浴室。簡和麗兹同時使用浴室會很奇怪。所以，既然麗兹已經在用浴室了，對簡来說最好的選擇就是等着用浴室。\n",
+                "reason": "推理：簡和麗茲都想用浴室。簡和麗茲同時使用浴室會很奇怪。所以，既然麗茲已經在用浴室了，對簡来說最好的選擇就是等着用浴室。\n",
                 "answer": "答案：<選項A>",
             }
         )
         example2 = self.build_prompt(
             "decide_wait_example",
             {
-                "context": "山姆是莎拉的朋友。2022-10-24 23:00，山姆和莎拉就最喜欢的電影進行了交谈。",
+                "context": "山姆是莎拉的朋友。2022-10-24 23:00，山姆和莎拉就最喜歡的電影進行了交談。",
                 "date": "2022-10-25 12:40",
                 "agent": "山姆",
                 "another": "莎拉",
@@ -569,7 +569,7 @@ class Scratch:
                 "another_status": "莎拉 已經在 洗衣服",
                 "action": "吃午飯",
                 "another_action": "洗衣服",
-                "reason": "推理：山姆可能會在餐厅吃午飯。莎拉可能會去洗衣房洗衣服。由於山姆和莎拉需要使用不同的區域，他们的行為並不冲突。所以，由於山姆和莎拉將在不同的區域，山姆現在繼續吃午飯。\n",
+                "reason": "推理：山姆可能會在餐廳吃午飯。莎拉可能會去洗衣房洗衣服。由於山姆和莎拉需要使用不同的區域，他们的行為並不冲突。所以，由於山姆和莎拉將在不同的區域，山姆現在繼續吃午飯。\n",
                 "answer": "答案：<選項B>",
             }
         )
@@ -798,7 +798,7 @@ class Scratch:
             "callback": _callback,
             "failsafe": [
                 [
-                    "{} 在考虑下一步該做什麼".format(self.name),
+                    "{} 在考慮下一步該做什麼".format(self.name),
                     [nodes[0].node_id],
                 ]
             ],

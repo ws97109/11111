@@ -9,10 +9,10 @@ from start import personas
 file_markdown = "simulation.md"
 file_movement = "movement.json"
 
-frames_per_step = 60  # 每個step包含的帧數
+frames_per_step = 60  # 每個step包含的幀數
 
 
-# 從存档文件中读取stride
+# 從存檔文件中讀取stride
 def get_stride(json_files):
     if len(json_files) < 1:
         return 1
@@ -25,17 +25,17 @@ def get_stride(json_files):
 
 # 將address轉換為字符串
 def get_location(address):
-    # 仅為兼容原版
+    # 僅為兼容原版
     # if address[0] == "<waiting>" or address[0] == "<persona>":
     #     return None
 
-    # 不需要显示address第一級（"the Ville"）
+    # 不需要顯示address第一級（"the Ville"）
     location = "，".join(address[1:])
 
     return location
 
 
-# 插入第0帧數據（Agent的初始狀態）
+# 插入第0幀數據（Agent的初始狀態）
 def insert_frame0(init_pos, movement, agent_name):
     key = "0"
     if key not in movement.keys():
@@ -59,7 +59,7 @@ def insert_frame0(init_pos, movement, agent_name):
     }
 
 
-# 從所有存档文件中提取數據（用於回放）
+# 從所有存檔文件中提取數據（用於回放）
 def generate_movement(checkpoints_folder, compressed_folder, compressed_file):
     movement_file = os.path.join(compressed_folder, compressed_file)
 
@@ -86,21 +86,21 @@ def generate_movement(checkpoints_folder, compressed_folder, compressed_file):
     result = {
         "start_datetime": "",  # 起始時間
         "stride": stride,  # 每個step對應的分鐘數（必須與生成時的參數一致）
-        "sec_per_step": sec_per_step,  # 回放時每一帧對應的秒數
+        "sec_per_step": sec_per_step,  # 回放時每一幀對應的秒數
         "persona_init_pos": persona_init_pos,  # 每個Agent的初始位置
-        "all_movement": all_movement,  # 所有Agent在每個setp中的位置变化
+        "all_movement": all_movement,  # 所有Agent在每個setp中的位置變化
     }
 
     last_location = dict()
 
-    # 加载地图數據，用於計算Agent移動路径
+    # 加載地圖數據，用於計算Agent移動路徑
     json_path = "frontend/static/assets/village/maze.json"
     with open(json_path, "r", encoding="utf-8") as f:
         json_data = json.load(f)
         maze = Maze(json_data, None)
 
     for file_name in json_files:
-        # 依次读取所有存档文件
+        # 依次讀取所有存檔文件
         with open(file_name, "r", encoding="utf-8") as f:
             json_data = json.load(f)
             step = json_data["step"]
@@ -111,9 +111,9 @@ def generate_movement(checkpoints_folder, compressed_folder, compressed_file):
                 t = datetime.strptime(json_data["time"], "%Y%m%d-%H:%M")
                 result["start_datetime"] = t.isoformat()
 
-            # 遍历單個存档文件中的所有Agent
+            # 遍歷單個存檔文件中的所有Agent
             for agent_name, agent_data in agents.items():
-                # 插入第0帧
+                # 插入第0幀
                 if step == 1:
                     insert_frame0(persona_init_pos, all_movement, agent_name)
 
@@ -159,13 +159,13 @@ def generate_movement(checkpoints_folder, compressed_folder, compressed_file):
                         if len(action) < 1:
                             action = f'{agent_data["action"]["event"]["predicate"]}{agent_data["action"]["event"]["object"]}'
 
-                        # 判斷該存档文件中當前Agent是否有新的對話（用於设置图標）
+                        # 判斷該存檔文件中當前Agent是否有新的對話（用於設置圖標）
                         for persons in persons_in_conversation:
                             if agent_name in persons:
                                 had_conversation = True
                                 break
 
-                        # 针對睡覺和對話设置图標
+                        # 針對睡覺和對話設置圖標
                         if "睡覺" in action:
                             action = "😴 " + action
                         elif had_conversation:
@@ -190,7 +190,7 @@ def generate_movement(checkpoints_folder, compressed_folder, compressed_file):
     return result
 
 
-# 生成Markdown文档
+# 生成Markdown文檔
 def generate_report(checkpoints_folder, compressed_folder, compressed_file):
     last_state = dict()
 
@@ -201,13 +201,13 @@ def generate_report(checkpoints_folder, compressed_folder, compressed_file):
             conversation = json.load(f)
 
     def extract_description():
-        markdown_content = "# 基础人设\n\n"
+        markdown_content = "# 基礎人設\n\n"
         for agent_name in personas:
             json_path = f"frontend/static/assets/village/agents/{agent_name}/agent.json"
             with open(json_path, "r", encoding="utf-8") as f:
                 json_data = json.load(f)
                 markdown_content += f"## {agent_name}\n\n"
-                markdown_content += f"年齡：{json_data['scratch']['age']}岁  \n"
+                markdown_content += f"年齡：{json_data['scratch']['age']}歲  \n"
                 markdown_content += f"先天：{json_data['scratch']['innate']}  \n"
                 markdown_content += f"後天：{json_data['scratch']['learned']}  \n"
                 markdown_content += f"生活習慣：{json_data['scratch']['lifestyle']}  \n"

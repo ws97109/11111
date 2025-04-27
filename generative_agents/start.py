@@ -10,14 +10,9 @@ from modules.game import create_game, get_game
 from modules import utils
 
 personas = [
-    "阿伊莎", "克劳斯", "玛丽亚", "沃爾夫冈",  # 學生
-    "梅", "约翰", "埃迪",  # 家庭：教授、药店主人、學生
-    "簡", "湯姆",  # 家庭：家庭主妇、市場主人
-    "卡门", "塔玛拉",  # 室友：供應店主人、兒童读物作家
-    "亚瑟", "伊莎贝拉",  # 酒吧老板、咖啡馆老板
-    "山姆", "詹妮弗",  # 家庭：退役军官、水彩畫家
-    "弗朗西斯科", "海莉", "拉吉夫", "拉托亚",  # 共居空間：喜剧演员、作家、畫家、摄影師
-    "阿比盖爾", "卡洛斯", "乔治", "瑞恩", "山本百合子", "亚當",  # 動畫師、诗人、數學家、软件工程師、税務律師、哲學家
+    "阿伊莎", "克勞斯", "瑪麗亞", "沃爾夫岡",  # 學生
+    "埃迪",  # 家庭：教授、藥店主人、學生
+
 ]
 
 
@@ -27,12 +22,12 @@ class SimulateServer:
         self.static_root = static_root
         self.checkpoints_folder = checkpoints_folder
 
-        # 历史存档數據（用於斷點恢复）
+        # 歷史存檔數據（用於斷點恢复）
         self.config = config
 
         os.makedirs(checkpoints_folder, exist_ok=True)
 
-        # 载入历史對話數據（用於斷點恢复）
+        # 載入歷史對話數據（用於斷點恢复）
         self.conversation_log = f"{checkpoints_folder}/conversation.json"
         if os.path.exists(self.conversation_log):
             with open(self.conversation_log, "r", encoding="utf-8") as f:
@@ -45,7 +40,7 @@ class SimulateServer:
         else:
             self.logger = utils.create_io_logger(verbose)
 
-        # 创建游戏
+        # 创建游戲
         game = create_game(name, static_root, config, conversation, logger=self.logger)
         game.reset_game(keys=config["api_keys"])
 
@@ -107,7 +102,7 @@ class SimulateServer:
         return utils.load_dict(os.path.join(self.static_root, path))
 
 
-# 從存档數據總载入配置，用於斷點恢复
+# 從存檔數據總載入配置，用於斷點恢复
 def get_config_from_log(checkpoints_folder):
     files = sorted(os.listdir(checkpoints_folder))
 
@@ -134,7 +129,7 @@ def get_config_from_log(checkpoints_folder):
     return config
 
 
-# 為新游戏创建配置
+# 為新游戲创建配置
 def get_config(start_time="20240213-09:30", stride=15, agents=None):
     with open("data/config.json", "r", encoding="utf-8") as f:
         json_data = json.load(f)

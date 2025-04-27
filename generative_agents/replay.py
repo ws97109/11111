@@ -36,7 +36,7 @@ def index():
     if step < 1:
         step = 1
     if step > 1:
-        # 重新设置回放的起始時間
+        # 重新設置回放的起始時間
         t = datetime.fromisoformat(params["start_datetime"])
         dt = t + timedelta(minutes=params["stride"]*(step-1))
         params["start_datetime"] = dt.isoformat()
@@ -44,7 +44,7 @@ def index():
         if step >= len(params["all_movement"]):
             step = len(params["all_movement"])-1
 
-        # 重新设置Agent的初始位置
+        # 重新設置Agent的初始位置
         for agent in params["persona_init_pos"].keys():
             persona_init_pos = params["persona_init_pos"]
             persona_step_pos = params["all_movement"][f"{step}"]

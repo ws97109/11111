@@ -15,7 +15,7 @@ class Event:
         # self.predicate = predicate or "is"
         # self.object = object or "idle"
         self.predicate = predicate or "此時"
-        self.object = object or "空闲"
+        self.object = object or "空閒"
         self._describe = describe or ""
         self.address = address or []
         self.emoji = emoji or ""
@@ -51,7 +51,7 @@ class Event:
         # self.predicate = predicate or "is"
         # self.object = object or "idle"
         self.predicate = predicate or "此時"
-        self.object = object or "空闲"
+        self.object = object or "空閒"
         self._describe = describe or self._describe
 
     def to_id(self):

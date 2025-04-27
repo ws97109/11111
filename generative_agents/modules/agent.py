@@ -301,7 +301,7 @@ class Agent:
             )
             recent_nodes = set(n.describe for n in recent_nodes)
             if event.get_describe() not in recent_nodes:
-                if event.object == "idle" or event.object == "空闲":
+                if event.object == "idle" or event.object == "空閒":
                     node = Concept.from_event(
                         "idle_" + str(idx), "event", event, poignancy=1
                     )
@@ -467,7 +467,7 @@ class Agent:
 
     def _reaction(self, agents=None, ignore_words=None):
         focus = None
-        ignore_words = ignore_words or ["空闲"]
+        ignore_words = ignore_words or ["空閒"]
 
         def _focus(concept):
             return concept.event.subject in agents
@@ -545,14 +545,14 @@ class Agent:
             )
 
             if i > 0:
-                # 對於发起對話的Agent，從第2轮對話開始，检查是否出現“复读”現象
+                # 對於發起對話的Agent，從第2轮對話開始，检查是否出現“复讀”現象
                 end = self.completion(
                     "generate_chat_check_repeat", self, chats, text
                 )
                 if end:
                     break
 
-                # 對於发起對話的Agent，從第2轮對話開始，检查話題是否結束
+                # 對於發起對話的Agent，從第2轮對話開始，检查話題是否結束
                 chats.append((self.name, text))
                 end = self.completion(
                     "decide_chat_terminate", self, other, chats
@@ -566,7 +566,7 @@ class Agent:
                 "generate_chat", other, self, relations[1], chats
             )
             if i > 0:
-                # 對於响應對話的Agent，從第2轮開始，检查是否出現“复读”現象
+                # 對於響應對話的Agent，從第2轮開始，检查是否出現“复讀”現象
                 end = self.completion(
                     "generate_chat_check_repeat", other, chats, text
                 )
@@ -575,7 +575,7 @@ class Agent:
 
             chats.append((other.name, text))
 
-            # 對於响應對話的Agent，從第1轮開始，检查話題是否結束
+            # 對於響應對話的Agent，從第1轮開始，检查話題是否結束
             end = other.completion(
                 "decide_chat_terminate", other, self, chats
             )
@@ -648,7 +648,7 @@ class Agent:
     ):
         if event.fit(None, "is", "idle"):
             poignancy = 1
-        elif event.fit(None, "此時", "空闲"):
+        elif event.fit(None, "此時", "空閒"):
             poignancy = 1
         elif e_type == "chat":
             poignancy = self.completion("poignancy_chat", event)

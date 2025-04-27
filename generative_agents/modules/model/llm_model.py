@@ -57,6 +57,7 @@ class LLMModel:
         caller="llm_normal",
         **kwargs
     ):
+        prompt = prompt + "\n請以繁體中文輸出回答。"
         response, self._meta_responses = None, []
         self._summary.setdefault(caller, [0, 0, 0])
         for _ in range(retry):
